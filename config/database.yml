@@ -1,0 +1,32 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: voice-api-development
+  pool: 5
+  username: yveslym
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: voice-api-test
+  pool: 5
+  username: yveslym
+  password:
+
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: voice-api-production
+  pool: 5
+  username: yveslym
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: <%= ENV['DATABASE_URL'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
