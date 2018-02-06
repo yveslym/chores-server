@@ -1,27 +1,18 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: voice-api-development
+  database: shore-api-development
   pool: 5
-  username: yveslym
-  password:
+  username: postgres
+  password: postgres
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: voice-api-test
+  database: shore-api-test
   pool: 5
-  username: yveslym
-  password:
-
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: voice-api-production
-  pool: 5
-  username: yveslym
-  password:
+  username: postgres
+  password: postgres
 
 production:
   adapter: postgresql
@@ -30,3 +21,12 @@ production:
   database: <%= ENV['DATABASE_URL'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: shore-api-production
+  pool: 5
+  username: postgres
+  password: postgres
+
