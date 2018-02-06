@@ -1,0 +1,35 @@
+require_relative 'boot'
+
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+
+Bundler.require(*Rails.groups)
+
+module VoiceyApi
+  class Application < Rails::Application
+
+    config.load_defaults 5.1
+
+    config.paperclip_defaults = {
+        storage: :s3,
+        s3_protocol: :https,
+        url: ':s3_domain_url',
+        path: '/:class/:attachment/:id_partition/:filename',
+        s3_credentials: {
+            bucket: ENV.fetch('S3_BUCKET_NAME'),
+            access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+            secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+            s3_region: ENV.fetch('AWS_REGION')
+        }
+    }
+
+    config.api_only = true
+  end
+end
