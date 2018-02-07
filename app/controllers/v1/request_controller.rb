@@ -10,6 +10,22 @@ class V1::RequestController < ApplicationController
         end
     end
 
+    # function to add or reject request
+    def update
+        req = Request.where(id: params[:id]).first
+        if req.request_type == "chore_request"
+            self.chore_request
+
+        elsif req.request_type == "group_request"
+            self.group_request
+
+        elsif req.request_type == "friend_request"
+
+        else
+            head(:unprocessable_entity)
+        end
+    end
+
     #function to create new request
     def create
         if User.where(id: params[:reciever_id]).first & Group.where(id: params[:group_id]).first
@@ -23,13 +39,46 @@ class V1::RequestController < ApplicationController
             head(:unprocessable_entity)
         end
     end
-    
-
-
-
 private
+# function to handle friend request
+def friend_request
 
-def v1_sessions_params
-  params.permit(:sender_id,:reciever_id, :group_id, :chore_id, :user_id, :request_type)
+end
+
+# function to handle group request
+def group_request
+    if v1_requests_params[:response] == :true
+        user = User.where(id: v1_requests_params[:reciever_id]).first
+        group = Group.where(id: v1v1_requests_params[:group_id]).first
+        group.users << user
+        if group.save
+            head(:ok)
+        else
+            head(:unprocessable_entity)
+        end
+    else
+        self.delete
+    end
+end
+
+#function to hamdle chore request
+def chore_request
+    if v1_requests_params[:response] == :true
+        user = User.where(id: v1_requests_params[:reciever_id]).first
+        chore = Chore.where(id: v1v1_requests_params[:chore_id]).first
+        chore.user_id = reciever_id
+        chore.assigned = :true
+        if chore.save
+            head(:ok)
+        else
+            head(:unprocessable_entity)
+        end
+    else
+        self.delete
+    end
+end
+
+def v1_requests_params
+  params.permit(:sender_id,:reciever_id, :group_id, :chore_id, :user_id, :request_type,:response)
     end
  end

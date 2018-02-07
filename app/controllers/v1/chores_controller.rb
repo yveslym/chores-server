@@ -4,7 +4,6 @@ class V1::ChoresController < ApplicationController
   # GET /v1/chores
   def index
     @v1_chores = V1::Chore.all
-
     render json: @v1_chores
   end
 
@@ -49,9 +48,6 @@ class V1::ChoresController < ApplicationController
   # GET /v1/group/{:group_id}/chores/users
   def user_chores
     @v1_chore = current_user.groups
-
-
-
     render json: @v1_chore
   end
   # GET /v1/group/{:group_id}/chores/groups

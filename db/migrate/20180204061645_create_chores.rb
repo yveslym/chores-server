@@ -7,7 +7,7 @@ class CreateChores < ActiveRecord::Migration[5.1]
       t.string :reward
       t.boolean :assigned
       t.boolean :completed
-      t.belongs_to :user, index: :true, optional: :true
+      t.references :user, index: :true
       t.timestamps
     end
   end

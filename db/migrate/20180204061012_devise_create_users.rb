@@ -21,7 +21,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
 
-      ## create the chore and group association
+      ## create user info
+      t.string :fist_name
+      t.string :last_name
+      t.string :username, unique: :true
 
 
 

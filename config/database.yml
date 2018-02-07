@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: shore-api-development
   pool: 5
-  username: shenny
+  username: yveslym
   password:
 
 test:
@@ -11,8 +11,8 @@ test:
   encoding: unicode
   database: shore-api-test
   pool: 5
-  username: shenny
-  password: 
+  username: yveslym
+  password:
 
 production:
   adapter: postgresql

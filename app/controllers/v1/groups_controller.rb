@@ -3,8 +3,7 @@ class V1::GroupsController < ApplicationController
 
   # GET /v1/groups
   def index
-
-    render json: current_user.groups, status: :ok
+    render json: Group.where(id: current_user.id), status: :ok
     #render :index, status: :ok
   end
 
@@ -23,9 +22,9 @@ class V1::GroupsController < ApplicationController
   def create
 
     @v1_group = current_user.groups.build(v1_group_params)
-
+    @v1_group.user_id = current_user.id
     if @v1_group.save
-      current_user.group_id = @v1_group.id
+      #current_user.group_id = @v1_group.id
       current_user.save
       render json: @v1_group, status: :created
     else
