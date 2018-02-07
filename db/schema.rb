@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206204133) do
+ActiveRecord::Schema.define(version: 20180207005615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,11 @@ ActiveRecord::Schema.define(version: 20180206204133) do
     t.bigint "group_id"
     t.bigint "sender_id"
     t.string "request_type"
+    t.bigint "{:index=>:true}_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
     t.index ["reciever_id"], name: "index_requests_on_reciever_id"
     t.index ["sender_id"], name: "index_requests_on_sender_id"
+    t.index ["{:index=>:true}_id"], name: "index_requests_on_{:index=>:true}_id"
   end
 
   create_table "users", force: :cascade do |t|
