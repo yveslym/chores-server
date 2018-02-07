@@ -3,16 +3,16 @@ development:
   encoding: unicode
   database: shore-api-development
   pool: 5
-  username: postgres
-  password: postgres
+  username: shenny
+  password:
 
 test:
   adapter: postgresql
   encoding: unicode
   database: shore-api-test
   pool: 5
-  username: postgres
-  password: postgres
+  username: shenny
+  password: 
 
 production:
   adapter: postgresql
