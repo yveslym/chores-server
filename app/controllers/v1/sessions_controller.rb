@@ -9,8 +9,7 @@ end
   def create
     @user = User.where(email: params[:email]).first
     if @user&.valid_password?(params[:password])
-        render json: @user.as_json(only: [:email, :authentication_token]), status: :created
-        #render :create, status: :created
+        render :create, status: :created
     else
         head(:unauthorized)
 
@@ -38,6 +37,12 @@ end
   end
 
 private
+
+def set_v1_chore
+  @user = current_user
+end
+
+
 def nilify_token
   current_user&.authentication_token = nil
 end
