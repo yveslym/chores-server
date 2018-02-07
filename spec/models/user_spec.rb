@@ -35,4 +35,14 @@ RSpec.describe User, type: :model do
       expect(user).to be_invalid
     end
   end
+
+  describe "Associations" do
+    it "should have and belong to many groups" do
+      assoc = User.reflect_on_association(:group)
+      expect(assoc.macro).to eq :has_and_belongs_to_many
+    end
+    it "should have many chores through groups" do
+      assoc = User.reflect_on_association(:chores)
+      expect(assoc.macro).to eq :has_many_through_groups
+  end
 end
