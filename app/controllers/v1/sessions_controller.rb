@@ -47,6 +47,6 @@ def nilify_token
   current_user&.authentication_token = nil
 end
 def v1_sessions_params
-  params.permit(:email,:password, :password_confirmation)
+  params.permit(:email,:password, :password_confirmation,:first_name, :last_name,:username)
 end
  end
