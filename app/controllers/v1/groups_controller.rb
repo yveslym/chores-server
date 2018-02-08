@@ -20,9 +20,10 @@ class V1::GroupsController < ApplicationController
 
   # POST /v1/groups
   def create
-
+      #byebug
     @v1_group = current_user.groups.build(v1_group_params)
     @v1_group.user_id = current_user.id
+    @v1_group.users << current_user
     if @v1_group.save
       #current_user.group_id = @v1_group.id
       current_user.save

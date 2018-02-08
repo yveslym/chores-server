@@ -17,6 +17,7 @@ end
   end
 
   def new_account
+
     @user = User.new(v1_sessions_params)
     if @user.save
       render json: @user, status: :ok

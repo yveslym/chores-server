@@ -1,7 +1,7 @@
-class V1::RequestController < ApplicationController
+class V1::RequestsController < ApplicationController
 
     # function to fetch all recieve invitation
-    def index
+    def show
         @v1_request = Request.where(reciever_id: current_user.id)
         if @v1_request != nil
             render json: @v1_request
@@ -28,8 +28,10 @@ class V1::RequestController < ApplicationController
 
     #function to create new request
     def create
-        if User.where(id: params[:reciever_id]).first & Group.where(id: params[:group_id]).first
-        @v1_request = Request.new(sender_id: current_user.id,reciever_id: params[:reciever_id],group_id: params[:group_id],request_type: params[:request_type])
+        if User.where(id: params[:reciever_id]).first && Group.where(id: v1_requests_params[:group_id]).first
+        @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
+            group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
+            chore_id: v1_requests_params[:chore_id])
         if @v1_request.save
             head(:ok)
         else
@@ -48,9 +50,9 @@ end
 # function to handle group request
 def group_request
     if v1_requests_params[:response] == :true
-        user = User.where(id: v1_requests_params[:reciever_id]).first
-        group = Group.where(id: v1v1_requests_params[:group_id]).first
-        group.users << user
+        # user = User.where(id: v1_requests_params[:reciever_id]).first
+        group = Group.where(id: v1_requests_params[:group_id]).first
+        group.users << current_user
         if group.save
             head(:ok)
         else
@@ -79,6 +81,7 @@ def chore_request
 end
 
 def v1_requests_params
-  params.permit(:sender_id,:reciever_id, :group_id, :chore_id, :user_id, :request_type,:response)
+  params.permit(:sender_id,:reciever_id, :group_id,
+      :chore_id, :user_id, :request_type,:response, :user_email, :user_token)
     end
  end
