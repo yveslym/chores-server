@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20180208011332) do
     t.bigint "group_id"
     t.bigint "sender_id"
     t.bigint "chore_id"
-    t.string "request_type"
+    t.integer "request_type"
     t.boolean "response"
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"

@@ -5,7 +5,7 @@ class CreateGroupRequest < ActiveRecord::Migration[5.1]
         t.references :group, index: :true
         t.references :sender, index: :true
         t.references :chore, index: :true
-        t.string :request_type
+        t.integer :request_type, null:false
         t.boolean :response
     end
   end

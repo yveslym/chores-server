@@ -3,6 +3,7 @@ class V1::GroupsController < ApplicationController
 
   # GET /v1/groups
   def index
+     @v1_groups = current_user.groups
     render json: Group.where(id: current_user.id), status: :ok
     #render :index, status: :ok
   end

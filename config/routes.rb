@@ -2,13 +2,13 @@ Rails.application.routes.draw do
   devise_for :users
 
 namespace :v1, defaults: { format: :json }  do
-resource :requests, only:[:create,:update,:show]
+resources :requests
 resource :sessions, only: [:create, :destroy,:show]
 resources :groups do
     resources :chores
 end
 end
-  post 'v1/new_account/' => 'v1/sessions#new_account'
+ post 'v1/new_account/' => 'v1/sessions#new_account'
 
  #chores routes
   get 'v1/chores/:group_id/user/' => 'v1/chores#user_chores'

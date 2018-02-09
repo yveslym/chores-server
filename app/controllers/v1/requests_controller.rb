@@ -1,7 +1,6 @@
 class V1::RequestsController < ApplicationController
 
-    # function to fetch all recieve invitation
-    def show
+    def index
         @v1_request = Request.where(reciever_id: current_user.id)
         if @v1_request != nil
             render json: @v1_request
@@ -9,18 +8,23 @@ class V1::RequestsController < ApplicationController
 
         end
     end
+    # function to fetch all recieve invitation
+    def show
+    end
 
     # function to add or reject request
     def update
         req = Request.where(id: params[:id]).first
-        if req.request_type == "chore_request"
-            self.chore_request
+        # response = RequestHelper.create_request(req)
+        # response.save
 
-        elsif req.request_type == "group_request"
+        if req.chores?
+            self.chore_request
+        elsif req.groups?
             self.group_request
 
-        elsif req.request_type == "friend_request"
-
+        elsif req.friends?
+            
         else
             head(:unprocessable_entity)
         end
@@ -65,9 +69,9 @@ end
 
 #function to hamdle chore request
 def chore_request
-    if v1_requests_params[:response] == :true
-        user = User.where(id: v1_requests_params[:reciever_id]).first
-        chore = Chore.where(id: v1v1_requests_params[:chore_id]).first
+    if v1_requests_params[:response] == true
+        user = User.find(id: v1_requests_params[:reciever_id])
+        chore = Chore.find(id: v1v1_requests_params[:chore_id])
         chore.user_id = reciever_id
         chore.assigned = :true
         if chore.save
