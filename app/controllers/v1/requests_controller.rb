@@ -21,10 +21,10 @@ class V1::RequestsController < ApplicationController
         if req.chores?
             self.chore_request
         elsif req.groups?
-            self.group_request
+            #self.group_request
 
         elsif req.friends?
-            
+
         else
             head(:unprocessable_entity)
         end
@@ -32,6 +32,10 @@ class V1::RequestsController < ApplicationController
 
     #function to create new request
     def create
+        if current_user == nil
+            head(:unprocessable_entity)
+        end
+        
         if User.where(id: params[:reciever_id]).first && Group.where(id: v1_requests_params[:group_id]).first
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],

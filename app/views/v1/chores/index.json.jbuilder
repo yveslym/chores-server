@@ -1,3 +1,3 @@
-json.data do
-    json.array! @v1_chores, :id, :name, :penality, :due_date, :reward
+json.array! @v1_chores do |each_chore|
+    json.partial! 'v1/chores/chore', chore: each_chore
 end

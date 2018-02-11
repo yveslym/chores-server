@@ -2,7 +2,8 @@ class V1::SessionsController < ApplicationController
 
 
 def show
-    current_user ? head(:ok) : head(:unauthorized)
+    @v1_user = current_user
+    @v1_user ? head(:ok) : head(:unauthorized)
 end
 
   # POST /v1/sessions

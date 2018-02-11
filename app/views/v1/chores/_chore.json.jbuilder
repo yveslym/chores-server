@@ -1,0 +1,11 @@
+json.call(
+    chore,
+    :id,
+    :name,
+    :penalty,
+    :due_date,
+    :reward,
+    :completed,
+    :assigned,
+    :user_id
+)
