@@ -3,8 +3,8 @@ class V1::ChoresController < ApplicationController
 
   # GET /v1/chores
   def index
-      
-      if current_user && (params[:chore_type] == "group")
+
+      if (current_user != nil) && (params[:chore_type] == "group")
 
           @v1_chore = V1::Chore.where(group_id: v1_chore_params[:group_id])
           render json: @v1_chore, status: :created

@@ -1,3 +1,1 @@
-json.data do
-
-end
+json.partial! 'v1/sessions/user', user: @v1_user

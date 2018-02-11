@@ -2,15 +2,15 @@ class V1::SessionsController < ApplicationController
 
 
 def show
-    @v1_user = current_user
-    @v1_user ? head(:ok) : head(:unauthorized)
+    @v1_user = User.where(username: params[:username]).first
+    @v1_user ? (render :show, status: :ok) : head(:unauthorized)
 end
 
   # POST /v1/sessions
   def create
-    
-    @user = User.where(email: params[:email]).first
-    if @user&.valid_password?(params[:password])
+
+    @v1_user = User.where(email: params[:email]).first
+    if @v1_user&.valid_password?(params[:password])
         render :create, status: :created
     else
         head(:unauthorized)
