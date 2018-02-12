@@ -14,7 +14,7 @@ class V1::ChoresController < ApplicationController
 
   # POST /v1/chores
   def create
-    group = user_current.groups.where(id: params[:group_id])
+    group = current_user.groups.where(id: params[:group_id])
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     if @v1_chore.save
