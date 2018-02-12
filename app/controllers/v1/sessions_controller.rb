@@ -2,8 +2,14 @@ class V1::SessionsController < ApplicationController
 
 
 def show
+    if params[:username] != nil
     @v1_user = User.where(username: params[:username]).first
     @v1_user ? (render :show, status: :ok) : head(:unauthorized)
+else
+    @v1_user = current_user
+    @v1_user ? (render :show, status: :ok) : head(:unauthorized)
+
+end
 end
 
   # POST /v1/sessions
@@ -39,6 +45,17 @@ end
     end
   end
 
+  # def update
+  #     @v1_user = current_user
+  #     if v1_sessions_params[:first_name] != nil
+  #          @v1_user.first_name = v1_sessions_params[:first_name]
+  #     elsif v1_sessions_params[last_name] != nil
+  #
+  #     elsif v1_sessions_params[username] != nil
+  #
+  #     else
+  # end
+
 private
 
 def set_v1_chore
@@ -49,7 +66,9 @@ end
 def nilify_token
   current_user&.authentication_token = nil
 end
+
 def v1_sessions_params
   params.permit(:email,:password, :password_confirmation,:first_name, :last_name,:username)
+    end
+
 end
- end
