@@ -3,9 +3,12 @@ class V1::GroupsController < ApplicationController
 
   # GET /v1/groups
   def index
-     @v1_groups = current_user.groups
-    render json: Group.where(id: current_user.id), status: :ok
-    #render :index, status: :ok
+     if @v1_group = current_user.groups
+         
+    render :index, status: :ok
+    else
+        render json: @v1_group.errors, status: :unprocessable_entity
+    end
   end
 
   # GET /v1/groups/1

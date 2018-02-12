@@ -1,4 +1,4 @@
-json.data do
-    json.array! @v1_groups,:name
-    
+
+    json.groups @v1_group do |group|
+        json.partial! 'v1/groups/group', group: group
 end

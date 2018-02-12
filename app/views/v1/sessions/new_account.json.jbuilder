@@ -1,12 +1,3 @@
 
 
-        json.call(
-
-            @user,
-            :id,
-            :email,
-            :first_name,
-            :last_name,
-            :username,
-            :authentication_token
-        )
+        json.partial! 'v1/sessions/user', user: @user

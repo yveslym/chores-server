@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
 namespace :v1, defaults: { format: :json }  do
-resources :requests
+resources :requests, only: [:create, :index, :update]
 resource :sessions, only: [:create, :destroy,:show]
 resources :groups do
     resources :chores

@@ -3,24 +3,39 @@ class V1::ChoresController < ApplicationController
 
   # GET /v1/chores
   def index
-    @v1_chores = V1::Chore.all
-    render json: @v1_chores
-  end
+
+      if (current_user != nil) && (params[:chore_type] == "group")
+
+          @v1_chore = V1::Chore.where(group_id: v1_chore_params[:group_id])
+          render json: @v1_chore, status: :created
+
+    elsif current_user && (params[:chore_type] == "user")
+        @v1_chore = V1::Chore.where(user_id: v1_chore_params[current_user.id])
+        render json: @v1_chore, status: :created
+    else
+    render json: @v1_chore.errors, status: :unprocessable_entity
+
+    end
+end
 
   # GET /v1/chores/1
-  def show
-    render json: @v1_chore
-  end
+#   def show
+#     render json: @v1_chore
+#   end
+# end
 
   # POST /v1/chores
   def create
-    group = current_user.groups.where(id: params[:group_id])
+
+    group = current_user.groups.where(id: params[:group_id]).first
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     if @v1_chore.save
-      render json: @v1_chore, status: :created, location: @v1_chore
+      render :create, status: :created
+
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
+
     end
   end
 
@@ -55,7 +70,7 @@ class V1::ChoresController < ApplicationController
 
     group = current_user.groups.where(id: params[:group_id]).first
     @v1_chore = group.chores
-    render json: @v1_chore
+    render :index, status: :ok
   end
 
   # POST /v1/groups/{:group_id}/chores/assign/user{id}
@@ -93,7 +108,7 @@ class V1::ChoresController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def v1_chore_params
-      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id)
+      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id, :chore_type)
 
     end
 end
