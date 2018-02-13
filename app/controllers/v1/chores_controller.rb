@@ -6,11 +6,11 @@ class V1::ChoresController < ApplicationController
 
       if (current_user != nil) && (params[:chore_type] == "group")
 
-          @v1_chore = V1::Chore.where(group_id: v1_chore_params[:group_id])
+          @v1_chore = Chore.where(group_id: v1_chore_params[:group_id])
           render json: @v1_chore, status: :created
 
     elsif current_user && (params[:chore_type] == "user")
-        @v1_chore = V1::Chore.where(user_id: v1_chore_params[current_user.id])
+        @v1_chore = Chore.where(user_id: v1_chore_params[current_user.id])
         render json: @v1_chore, status: :created
     else
     render json: @v1_chore.errors, status: :unprocessable_entity
@@ -30,6 +30,7 @@ end
     group = current_user.groups.where(id: params[:group_id]).first
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
+    @v1_chore.assigned = false
     if @v1_chore.save
       render :create, status: :created
 
