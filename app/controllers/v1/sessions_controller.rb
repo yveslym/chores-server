@@ -45,16 +45,22 @@ end
     end
   end
 
-  # def update
-  #     @v1_user = current_user
-  #     if v1_sessions_params[:first_name] != nil
-  #          @v1_user.first_name = v1_sessions_params[:first_name]
-  #     elsif v1_sessions_params[last_name] != nil
-  #
-  #     elsif v1_sessions_params[username] != nil
-  #
-  #     else
-  # end
+  def update
+      @v1_user = current_user
+      if v1_sessions_params[:first_name] != nil
+           @v1_user.first_name = v1_sessions_params[:first_name]
+      elsif v1_sessions_params[:last_name] != nil
+          @v1_user.last_name = v1_sessions_params[:last_name]
+      elsif v1_sessions_params[username] != nil
+          @v1_user.username = v1_sessions_params[:username]
+    end
+
+    if @v1_user.save
+        render json: :update, status: :ok
+    else
+        render json: @v1_user.erros, status: :unprocessable_entity
+  end
+end
 
 private
 

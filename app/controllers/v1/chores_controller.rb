@@ -9,7 +9,7 @@ class V1::ChoresController < ApplicationController
           @v1_chore = V1::Chore.where(group_id: v1_chore_params[:group_id])
           render json: @v1_chore, status: :created
 
-    elsif current_user && (params[:chore_type] == "user")
+    elsif (current_user != nil) && (params[:chore_type] == "user")
         @v1_chore = V1::Chore.where(user_id: v1_chore_params[current_user.id])
         render json: @v1_chore, status: :created
     else
