@@ -70,11 +70,12 @@ end
 
           @v1_chore << chore
 
+
         end
       end
     end
-    
-    render json: @v1_chore
+
+    render json: @v1_chore, status: :ok
   end
   # GET /v1/group/{:group_id}/chores/groups
   def group_chores
