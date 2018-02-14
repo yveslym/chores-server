@@ -63,7 +63,17 @@ end
 
   # GET /v1/group/{:group_id}/chores/users
   def user_chores
-    @v1_chore = current_user.groups
+    @v1_chore ||= []
+     current_user.groups.each do |group|
+       group.chores.each do |chore|
+        if chore.user_id == current_user.id
+
+          @v1_chore << chore
+
+        end
+      end
+    end
+    
     render json: @v1_chore
   end
   # GET /v1/group/{:group_id}/chores/groups
