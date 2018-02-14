@@ -50,6 +50,7 @@ class V1::RequestsController < ApplicationController
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
             chore_id: v1_requests_params[:chore_id])
+            
         if @v1_request.save
             render json: @v1_request, status: :created
         else
