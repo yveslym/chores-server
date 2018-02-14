@@ -9,13 +9,8 @@ class V1::ChoresController < ApplicationController
           @v1_chore = Chore.where(group_id: v1_chore_params[:group_id])
           render json: @v1_chore, status: :created
 
-<<<<<<< HEAD
     elsif (current_user != nil) && (params[:chore_type] == "user")
         @v1_chore = V1::Chore.where(user_id: v1_chore_params[current_user.id])
-=======
-    elsif current_user && (params[:chore_type] == "user")
-        @v1_chore = Chore.where(user_id: v1_chore_params[current_user.id])
->>>>>>> 200e9dadc4037558221720baea83c56c6b82bae3
         render json: @v1_chore, status: :created
     else
     render json: @v1_chore.errors, status: :unprocessable_entity
