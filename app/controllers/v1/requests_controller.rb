@@ -2,7 +2,7 @@ class V1::RequestsController < ApplicationController
 
     def index
         #byebug
-        @v1_request = Request.where(reciever_id: params[:reciever_id])
+        @v1_request = Request.where(reciever_id: current_user.id)
         render json: @v1_request, status: :ok
     # if (current_user != nil)
     #     if @v1_request = Request.where(reciever_id: current_user.id)
@@ -59,6 +59,9 @@ class V1::RequestsController < ApplicationController
             head(:unprocessable_entity)
         end
     end
+
+
+
 private
 # function to handle friend request
 def friend_request
