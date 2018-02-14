@@ -1,6 +1,6 @@
 class Request < ApplicationRecord
     enum request_type: [:groups, :chores, :friends]
-
+    #ASSIGN CHORE
     def chore_request(v1_requests_params)
             user = User.find(v1_requests_params[:reciever_id])
             @chore = Chore.find(v1_requests_params[:chore_id])

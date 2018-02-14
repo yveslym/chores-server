@@ -15,6 +15,7 @@ config.secret_key = '4e76b7ebc0d2e556df61b7f2ba9b79e1e9d6f9e67c79764b637fbef7801
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  # config.navigational_formats = []
 #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
