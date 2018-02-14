@@ -49,8 +49,12 @@ class V1::RequestsController < ApplicationController
         if (User.where(id: params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
+<<<<<<< HEAD
             chore_id: v1_requests_params[:chore_id])
             
+=======
+            chore_id: v1_requests_params[:chore_id], group_name: v1_requests_params[:group_name])
+>>>>>>> fe8478a6ba30f094279035be45177a38ddae4612
         if @v1_request.save
             render json: @v1_request, status: :created
         else
@@ -77,6 +81,6 @@ end
 def v1_requests_params
   params.permit(:sender_id,:reciever_id, :group_id,
       :chore_id, :user_id, :request_type,:response,
-      :user_email, :user_token,:username, :id)
+      :user_email, :user_token,:username, :id, :group_name)
     end
  end

@@ -4,5 +4,6 @@ json.call(@v1_request,
          :request_type,
          :group_id,
          :chore_id,
-         :response
+         :response,
+         :group_name
      )
