@@ -26,8 +26,9 @@ end
 
   # POST /v1/chores
   def create
-
+    # byebug
     group = current_user.groups.where(id: params[:group_id]).first
+    # byebug
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     @v1_chore.assigned = false

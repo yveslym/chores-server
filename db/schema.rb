@@ -48,17 +48,13 @@ ActiveRecord::Schema.define(version: 20180214200859) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.bigint "reciever_id"
     t.bigint "group_id"
-    t.bigint "sender_id"
     t.bigint "chore_id"
     t.integer "request_type", null: false
     t.boolean "response"
     t.string "group_name", limit: 40
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
-    t.index ["reciever_id"], name: "index_requests_on_reciever_id"
-    t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,4 +80,11 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chores", "groups"
+  add_foreign_key "chores", "users"
+  add_foreign_key "groups", "users"
+  add_foreign_key "groups_users", "groups"
+  add_foreign_key "groups_users", "users"
+  add_foreign_key "requests", "chores"
+  add_foreign_key "requests", "groups"
 end
