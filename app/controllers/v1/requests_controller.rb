@@ -46,6 +46,7 @@ class V1::RequestsController < ApplicationController
         #     head(:unprocessable_entity)
         # end
 
+
         if (User.where(id: params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],

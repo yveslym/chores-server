@@ -5,7 +5,7 @@ class Request < ApplicationRecord
             user = User.find(v1_requests_params[:reciever_id])
             @chore = Chore.find(v1_requests_params[:chore_id])
             #@chore.user_id = user.id
-            users.chores << @chore
+            user.chores << @chore
             @chore.assigned = :true
             @chore
     end
