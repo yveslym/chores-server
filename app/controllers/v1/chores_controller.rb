@@ -45,11 +45,13 @@ end
   def update
 
     @v1_chore = Chore.where(id: params[:id]).first
-    
+
     if v1_chore_params[:user_id]
       @v1_chore.user_id = params[:user_id]
       @v1_chore.assigned = true
-      render :show, status: :ok
+      if @v1_chore.save
+        render :show, status: :ok
+      end
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
     end
