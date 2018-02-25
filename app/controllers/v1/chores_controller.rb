@@ -26,14 +26,13 @@ end
 
   # POST /v1/chores
   def create
-
+    verify_current_user
     group = current_user.groups.where(id: params[:group_id]).first
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     @v1_chore.assigned = false
     if @v1_chore.save
       render :create, status: :created
-
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
 
@@ -111,6 +110,11 @@ end
    else
      head(:unprocessable_entity)
    end
+  end
+  def verify_current_user
+      if current_user == nil
+          head(:unprocessable_entity)
+      end
   end
   private
     # Use callbacks to share common setup or constraints between actions.

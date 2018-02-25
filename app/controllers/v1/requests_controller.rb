@@ -2,10 +2,10 @@ class V1::RequestsController < ApplicationController
 
     def index
         #byebug
-        @v1_request = Request.where(reciever_id: current_user.id)
+        @v1_request = Request.where(receiver_id: current_user.id)
         render json: @v1_request, status: :ok
     # if (current_user != nil)
-    #     if @v1_request = Request.where(reciever_id: current_user.id)
+    #     if @v1_request = Request.where(receiver_id: current_user.id)
     #         render json: @v1_request, status: :ok
     #     else
     #         render json: @v1_request.errors, status: :unprocessable_entity
@@ -46,8 +46,8 @@ class V1::RequestsController < ApplicationController
         #     head(:unprocessable_entity)
         # end
 
-        if (User.where(id: params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
-        @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
+        if (User.where(id: params[:receiver_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
+        @v1_request = Request.new(sender_id: current_user.id,receiver_id: v1_requests_params[:receiver_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
             chore_id: v1_requests_params[:chore_id], group_name: v1_requests_params[:group_name])
         if @v1_request.save
@@ -74,8 +74,8 @@ end
 
 
 def v1_requests_params
-  params.permit(:sender_id,:reciever_id, :group_id,
-      :chore_id, :user_id, :request_type,:response,
+  params.required(:sender_id,:receiver_id, :group_id, :request_type).permit(
+      :chore_id, :user_id,:response,
       :user_email, :user_token,:username, :id, :group_name)
     end
  end
