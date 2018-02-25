@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :chores, through: :groups
   has_and_belongs_to_many :groups#, foreign_key: :owner
+  has_many :chores, through: :groups, :autosave => false
   validates :email, presence: true, uniqueness: true
 end

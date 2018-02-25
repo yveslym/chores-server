@@ -4,7 +4,7 @@ class V1::GroupsController < ApplicationController
   # GET /v1/groups
   def index
      if @v1_group = current_user.groups
-         
+
     render :index, status: :ok
     else
         render json: @v1_group.errors, status: :unprocessable_entity

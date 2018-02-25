@@ -26,13 +26,15 @@ end
 
   # POST /v1/chores
   def create
-    verify_current_user
+    # byebug
     group = current_user.groups.where(id: params[:group_id]).first
+    # byebug
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     @v1_chore.assigned = false
     if @v1_chore.save
       render :create, status: :created
+
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
 
@@ -42,9 +44,12 @@ end
   # PATCH/PUT /v1/chores/1
   def update
 
-    @v1_chore = Chore.where(id: params[:id])
-    if @v1_chore.update(v1_chore_params)
-      render json: @v1_chore
+    @v1_chore = Chore.where(id: params[:id]).first
+    
+    if v1_chore_params[:user_id]
+      @v1_chore.user_id = params[:user_id]
+      @v1_chore.assigned = true
+      render :show, status: :ok
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
     end
@@ -111,15 +116,10 @@ end
      head(:unprocessable_entity)
    end
   end
-  def verify_current_user
-      if current_user == nil
-          head(:unprocessable_entity)
-      end
-  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_v1_chore
-      @v1_chore = current_user.groups.chores
+      #@v1_chore = current_user.groups.chores
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "fist_name"
     t.string "last_name"
     t.string "username"
     t.datetime "created_at", null: false
@@ -83,5 +84,5 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chores", "groups"
+  add_foreign_key "chores", "users"
 end
