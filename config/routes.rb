@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-
+#adds v1/ then the rest of the path
 namespace :v1, defaults: { format: :json }  do
+#only create routes for things inside the array
 resources :requests, only: [:create, :index, :update]
+#if its resource, and not resources, there won't be id associated with the path
 resource :sessions, only: [:create, :destroy,:show]
 resources :groups do
     resources :chores

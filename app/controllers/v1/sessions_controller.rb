@@ -3,11 +3,11 @@ class V1::SessionsController < ApplicationController
 
 def show
     if params[:username] != nil
-    @v1_user = User.where(username: params[:username]).first
-    @v1_user ? (render :show, status: :ok) : head(:unauthorized)
-else
-    @v1_user = current_user
-    @v1_user ? (render :show, status: :ok) : head(:unauthorized)
+      @v1_user = User.where(username: params[:username]).first
+      @v1_user ? (render :show, status: :ok) : head(:unauthorized)
+    else
+      @v1_user = current_user
+      @v1_user ? (render :show, status: :ok) : head(:unauthorized)
 
 end
 end
