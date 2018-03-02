@@ -24,9 +24,11 @@ class V1::GroupsController < ApplicationController
 
   # POST /v1/groups
   def create
-      #byebug
+    #Build the new group with group params and put the new group in the groups collection of User
     @v1_group = current_user.groups.build(v1_group_params)
+    #set the new group's user_id to the user thats logged in, basically the creator
     @v1_group.user_id = current_user.id
+    #add in the current user to the new group's list of members
     @v1_group.users << current_user
     if @v1_group.save
       #current_user.group_id = @v1_group.id

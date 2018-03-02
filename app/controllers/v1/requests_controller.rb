@@ -13,6 +13,8 @@ class V1::RequestsController < ApplicationController
     def update
         req = Request.find(params[:id])
 
+        #Checks the type of request and also that our request function succeeded and saved,
+        #if both is true, we'll destroy that request.
         if req.chores? && req.chore_request(v1_requests_params).save
             req.destroy
 
@@ -37,21 +39,19 @@ class V1::RequestsController < ApplicationController
         #     head(:unprocessable_entity)
         # end
 
-
-        if (User.where(id: params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
+        #Can params be fulfilled through the headers as well?
+        #Checks the receiver and group id parameter to see if they exist
+        #Then create a new Request with parameters through the body, including group id and receiver id
+        if (User.where(id: v1_requests_params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
             chore_id: v1_requests_params[:chore_id], group_name: v1_requests_params[:group_name])
-
-
 
         if @v1_request.save
             render json: @v1_request, status: :created
         else
             head(:unprocessable_entity)
             end
-        else
-            head(:unprocessable_entity)
         end
     end
 
@@ -63,9 +63,6 @@ def friend_request
 
 end
 
-
-
-#function to hamdle chore request
 
 
 def v1_requests_params
