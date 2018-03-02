@@ -3,16 +3,7 @@ class V1::RequestsController < ApplicationController
     def index
         #byebug
         @v1_request = Request.where(reciever_id: current_user.id)
-        render json: @v1_request, status: :ok
-    # if (current_user != nil)
-    #     if @v1_request = Request.where(reciever_id: current_user.id)
-    #         render json: @v1_request, status: :ok
-    #     else
-    #         render json: @v1_request.errors, status: :unprocessable_entity
-    #     end
-    # else
-    #         render head(:unprocessable_entity)
-    #     end
+        render :index, status: :ok
     end
     # function to fetch all recieve invitation
     def show
