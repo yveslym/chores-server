@@ -4,7 +4,7 @@ class Request < ApplicationRecord
     # the logic of what accepting the request does
 
     #function to respond to a chore_completion_request
-    def chore_completion_request (v1_requests_params)
+    def chore_completion_confirmation (v1_requests_params)
       #Here we just want to change the specific chore's completion property to true
       @chore = Chore.find(v1_requests_params[:chore_id])
       @chore.completed = :true

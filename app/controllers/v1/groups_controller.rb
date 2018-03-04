@@ -15,7 +15,7 @@ class V1::GroupsController < ApplicationController
   def show
     @v1_group = current_user.group.where(id: params[:id]).first
     if  @v1_group != nil
-      render json: group, status: :ok
+      render json: @v1_group, status: :ok
     else
       render json: @v1_group.errors, status: :unprocessable_entity
     end

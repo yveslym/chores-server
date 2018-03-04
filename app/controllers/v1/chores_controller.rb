@@ -79,12 +79,9 @@ end
      current_user.groups.each do |group|
        group.chores.each do |chore|
         if chore.user_id == current_user.id
-
           @v1_chore << chore
-
-
         end
-      end
+       end
     end
     #render json is basically the return value, in this case, return @v1_chore as json
     render json: @v1_chore, status: :ok

@@ -1,6 +1,5 @@
 class V1::SessionsController < ApplicationController
 
-
 def show
     if params[:username] != nil
       @v1_user = User.where(username: params[:username]).first
@@ -74,7 +73,9 @@ def nilify_token
 end
 
 def v1_sessions_params
-  params.permit(:email,:password, :password_confirmation,:first_name, :last_name,:username)
-    end
+      params
+      .require(:email, :password)
+      .permit(:email,:password, :password_confirmation,:first_name, :last_name,:username)
+end
 
 end

@@ -11,6 +11,7 @@ resources :groups do
 end
 end
  post 'v1/new_account/' => 'v1/sessions#new_account'
+ post 'v1/chore_completion_request/' => 'v1/requests#chore_completion_request'
 
  #chores routes
   get 'v1/chores/user/' => 'v1/chores#user_chores'
