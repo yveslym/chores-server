@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214200859) do
+ActiveRecord::Schema.define(version: 20180304031830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.integer "request_type", null: false
     t.boolean "response"
     t.string "group_name", limit: 40
+    t.string "unique_id"
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
     t.index ["reciever_id"], name: "index_requests_on_reciever_id"
@@ -72,7 +73,6 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "fist_name"
     t.string "last_name"
     t.string "username"
     t.datetime "created_at", null: false
@@ -84,5 +84,5 @@ ActiveRecord::Schema.define(version: 20180214200859) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chores", "users"
+  add_foreign_key "chores", "groups"
 end

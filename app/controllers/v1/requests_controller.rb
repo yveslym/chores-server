@@ -37,11 +37,12 @@ class V1::RequestsController < ApplicationController
     def chore_completion_request
       chore = Chore.where(id: params[:chore_id]).first
       group = Group.where(id: chore.group_id).first
+      unique_id = SecureRandom.uuid
 
       group.users.each do |user|
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
           request_type: v1_requests_params[:request_type],
-            chore_id: v1_requests_params[:chore_id])
+            chore_id: v1_requests_params[:chore_id], unique_id: unique_id)
         if @v1_request.save
             head(:ok)
         else
@@ -52,9 +53,6 @@ class V1::RequestsController < ApplicationController
 
     #function to create new request
     def create
-        # if current_user == nil
-        #     head(:unprocessable_entity)
-        # end
 
         #Can params be fulfilled through the headers as well?
         #Checks the receiver and group id parameter to see if they exist
