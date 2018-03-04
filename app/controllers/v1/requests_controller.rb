@@ -33,10 +33,10 @@ class V1::RequestsController < ApplicationController
         end
     end
 
+    ''' funtion to send chore completion to all isers of same group'''
     def chore_completion_request
-      count = 0
-      @v1_chore = Chore.where(id: params[:chore_id]).first
-      group = Group.where(id: @v1_chore.group_id).first
+      chore = Chore.where(id: params[:chore_id]).first
+      group = Group.where(id: chore.group_id).first
 
       group.users.each do |user|
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
