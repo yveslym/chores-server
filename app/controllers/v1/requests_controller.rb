@@ -28,7 +28,6 @@ class V1::RequestsController < ApplicationController
         elsif req.friends? && req.friend_request(v1_requests_params).save
             req.destroy
             head(:ok)
-
         else
             head(:unprocessable_entity)
         end
@@ -38,22 +37,17 @@ class V1::RequestsController < ApplicationController
       count = 0
       @v1_chore = Chore.where(id: params[:chore_id]).first
       group = Group.where(id: @v1_chore.group_id).first
-      group.users.each do |user|
 
+      group.users.each do |user|
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
           request_type: v1_requests_params[:request_type],
             chore_id: v1_requests_params[:chore_id])
-            if @v1_request.save
-              count += 1
+        if @v1_request.save
+            head(:ok)
+        else
+            head(:unprocessable_entity)
             end
-
-      end
-      if count == group.users.length
-        render json: @v1_request, status: :created
-
-      else
-        head(:unprocessable_entity)
-      end
+        end
     end
 
     #function to create new request
