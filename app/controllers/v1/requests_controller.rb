@@ -9,7 +9,7 @@ class V1::RequestsController < ApplicationController
     def show
     end
 
-    # function to add or reject request
+    '''Function to check if validate or reject request'''
     def update
         req = Request.find(params[:id])
 
@@ -28,6 +28,8 @@ class V1::RequestsController < ApplicationController
         elsif req.friends? && req.friend_request(v1_requests_params).save
             req.destroy
             head(:ok)
+        elsif req.completion?
+            
         else
             head(:unprocessable_entity)
         end
@@ -63,7 +65,7 @@ class V1::RequestsController < ApplicationController
             chore_id: v1_requests_params[:chore_id], group_name: v1_requests_params[:group_name])
 
         if @v1_request.save
-            render json: @v1_request, status: :created
+            head(:ok)
         else
             head(:unprocessable_entity)
         end
