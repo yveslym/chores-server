@@ -41,7 +41,6 @@ class Request < ApplicationRecord
     end
     # function to handle group request
     def group_request (v1_requests_params)
-
             req = Request.find(v1_requests_params[:id])
             @group = Group.where(id: v1_requests_params[:group_id]).first
             user = User.find(req.reciever_id)

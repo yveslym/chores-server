@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180306204254) do
+=======
+ActiveRecord::Schema.define(version: 20180304031830) do
+>>>>>>> efb46f3c7d220d3d62879a32c3bcf5ef6f4a6c0e
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +60,11 @@ ActiveRecord::Schema.define(version: 20180306204254) do
     t.integer "request_type", null: false
     t.boolean "response"
     t.string "group_name", limit: 40
+<<<<<<< HEAD
     t.string "uuid"
+=======
+    t.string "unique_id"
+>>>>>>> efb46f3c7d220d3d62879a32c3bcf5ef6f4a6c0e
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
     t.index ["reciever_id"], name: "index_requests_on_reciever_id"
@@ -74,7 +82,6 @@ ActiveRecord::Schema.define(version: 20180306204254) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "fist_name"
     t.string "last_name"
     t.string "username"
     t.datetime "created_at", null: false
@@ -86,5 +93,5 @@ ActiveRecord::Schema.define(version: 20180306204254) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chores", "users"
+  add_foreign_key "chores", "groups"
 end
