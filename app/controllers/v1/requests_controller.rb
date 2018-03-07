@@ -3,7 +3,7 @@ class V1::RequestsController < ApplicationController
     #Function for fetching only the chore completion requests
     def fetch_chore_completion_requests
       @v1_request ||= []
-      all_requests = Request.where(reciever_id: current_user.id)
+      all_requests = Request.where(reciever_id: current_user.id, group_id: v1_requests_params[:group_id])
       all_requests.each do |request|
         if request.group_name == nil
           @v1_request << request
@@ -54,6 +54,8 @@ class V1::RequestsController < ApplicationController
         elsif req.friends? && req.friend_request(v1_requests_params).save
             req.destroy
             head(:ok)
+        elsif req.completion? && req.chore_completion_confirmation(v1_requests_params).save
+            head(:ok)
         else
             head(:unprocessable_entity)
         end
@@ -62,12 +64,14 @@ class V1::RequestsController < ApplicationController
     ''' function to send chore completion to all users of same group'''
     def chore_completion_request
       chore = Chore.where(id: params[:chore_id]).first
+      chore.pending = true
+      chore.save
       group = Group.where(id: chore.group_id).first
-
+      uuid = SecureRandom.uuid
       group.users.each do |user|
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
           request_type: v1_requests_params[:request_type],
-            chore_id: v1_requests_params[:chore_id])
+            chore_id: v1_requests_params[:chore_id], group_id: chore.group_id, uuid: uuid)
         if @v1_request.save
             head(:ok)
         else
@@ -85,6 +89,7 @@ class V1::RequestsController < ApplicationController
         #Can params be fulfilled through the headers as well?
         #Checks the receiver and group id parameter to see if they exist
         #Then create a new Request with parameters through the body, including group id and receiver id
+
         if (User.where(id: v1_requests_params[:reciever_id]).first != nil) && (Group.where(id: v1_requests_params[:group_id]).first != nil)
         @v1_request = Request.new(sender_id: current_user.id,reciever_id: v1_requests_params[:reciever_id],
             group_id: v1_requests_params[:group_id],request_type: v1_requests_params[:request_type],
@@ -111,6 +116,6 @@ end
 def v1_requests_params
   params.permit(:sender_id,:reciever_id, :group_id,
       :chore_id, :user_id, :request_type,:response,
-      :user_email, :user_token,:username, :id, :group_name)
+      :user_email, :user_token,:username, :id, :group_name, :uuid)
     end
  end
