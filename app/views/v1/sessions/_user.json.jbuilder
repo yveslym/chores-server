@@ -5,5 +5,6 @@ json.call(
         :first_name,
         :last_name,
         :username,
-        :authentication_token
+        :authentication_token,
+        :image_file
     )

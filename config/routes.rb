@@ -6,7 +6,7 @@ namespace :v1, defaults: { format: :json }  do
 resources :requests
  # only: [:create, :index, :update]
 #if its resource, and not resources, there won't be id associated with the path
-resource :sessions, only: [:create, :destroy,:show]
+resource :sessions, only: [:create, :destroy,:show, :update]
 resources :groups do
     resources :chores
 end

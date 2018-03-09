@@ -12,6 +12,7 @@ end
 end
 
   # POST /v1/sessions
+  #not in use
   def create
 
     @v1_user = User.where(email: params[:email]).first
@@ -46,18 +47,11 @@ end
 
   def update
       @v1_user = current_user
-      if v1_sessions_params[:first_name] != nil
-           @v1_user.first_name = v1_sessions_params[:first_name]
-      elsif v1_sessions_params[:last_name] != nil
-          @v1_user.last_name = v1_sessions_params[:last_name]
-      elsif v1_sessions_params[username] != nil
-          @v1_user.username = v1_sessions_params[:username]
-    end
-
-    if @v1_user.save
-        render json: :update, status: :ok
+      byebug
+    if @v1_user.update(v1_sessions_params)
+        render json: @v1_user, status: :ok
     else
-        render json: @v1_user.erros, status: :unprocessable_entity
+        render json: @v1_user.errors, status: :unprocessable_entity
   end
 end
 
@@ -73,9 +67,9 @@ def nilify_token
 end
 
 def v1_sessions_params
-      params
-      .require(:email, :password)
-      .permit(:email,:password, :password_confirmation,:first_name, :last_name,:username)
+      params.permit(:email, :password, :password_confirmation,:first_name, :last_name,:username, :image_file)
 end
+      # .require(:email, :password)
+
 
 end

@@ -54,13 +54,8 @@ class V1::RequestsController < ApplicationController
         elsif req.friends? && req.friend_request(v1_requests_params).save
             req.destroy
             head(:ok)
-<<<<<<< HEAD
         elsif req.completion? && req.chore_completion_confirmation(v1_requests_params).save
             head(:ok)
-=======
-        elsif req.completion?
-            
->>>>>>> efb46f3c7d220d3d62879a32c3bcf5ef6f4a6c0e
         else
             head(:unprocessable_entity)
         end
@@ -72,20 +67,11 @@ class V1::RequestsController < ApplicationController
       chore.pending = true
       chore.save
       group = Group.where(id: chore.group_id).first
-<<<<<<< HEAD
       uuid = SecureRandom.uuid
       group.users.each do |user|
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
           request_type: v1_requests_params[:request_type],
             chore_id: v1_requests_params[:chore_id], group_id: chore.group_id, uuid: uuid)
-=======
-      unique_id = SecureRandom.uuid
-
-      group.users.each do |user|
-          @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
-          request_type: v1_requests_params[:request_type],
-            chore_id: v1_requests_params[:chore_id], unique_id: unique_id)
->>>>>>> efb46f3c7d220d3d62879a32c3bcf5ef6f4a6c0e
         if @v1_request.save
             head(:ok)
         else

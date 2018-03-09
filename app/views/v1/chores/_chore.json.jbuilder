@@ -10,4 +10,10 @@ json.call(
     :completed,
     :assigned,
     :user_id
+    :image_file
 )
+
+# json.image_file do
+#   json.partial! 'v1/users/user', user: current_user
+#   json.call(user, :id,:email, :first_name, :last_name, :username)
+# end
