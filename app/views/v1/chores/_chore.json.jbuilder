@@ -10,7 +10,6 @@ json.call(
     :completed,
     :assigned,
     :user_id
-    :image_file
 )
 
 # json.image_file do
