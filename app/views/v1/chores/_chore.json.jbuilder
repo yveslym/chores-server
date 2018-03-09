@@ -11,3 +11,8 @@ json.call(
     :assigned,
     :user_id
 )
+
+# json.image_file do
+#   json.partial! 'v1/users/user', user: current_user
+#   json.call(user, :id,:email, :first_name, :last_name, :username)
+# end
