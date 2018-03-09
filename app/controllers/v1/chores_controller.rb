@@ -38,6 +38,7 @@ end
     @v1_chore = group.chores.build(v1_chore_params)
     @v1_chore.completed = false
     @v1_chore.assigned = false
+    @v1_chore.pending = false
     if @v1_chore.save
       render :create, status: :created
     else
