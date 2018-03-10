@@ -47,7 +47,7 @@ end
 
   def update
       @v1_user = current_user
-      byebug
+
     if @v1_user.update(v1_sessions_params)
         render json: @v1_user, status: :ok
     else

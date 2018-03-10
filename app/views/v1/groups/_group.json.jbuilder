@@ -10,5 +10,5 @@ end
 #Adding the users inside the group
 json.members group.users do |user|
   json.partial! 'v1/users/user', user: user
-  json.call(user, :id,:email, :first_name, :last_name, :username)
+  json.call(user, :id,:email, :first_name, :last_name, :username, :image_file)
 end
