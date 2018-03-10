@@ -9,7 +9,7 @@ class V1::ChoresController < ApplicationController
 
       if (current_user.present? && params[:chore_type] == "group")
           #set global var to all the chores where the group id is equal to the id in our body
-          @v1_chore = Chore.where(group_id: v1_chore_params[:group_id])
+          @v1_chore = Chore.where(group_id: v1_chore_params[:group_id], completed: false)
           render :index, status: :ok
 
     elsif (current_user.present? && params[:chore_type] == "user")
@@ -74,24 +74,48 @@ end
     end
   end
 
-  # GET /v1/group/{:group_id}/chores/users
-  def user_chores
+  def completed_user_chores
     @v1_chore ||= []
      current_user.groups.each do |group|
        group.chores.each do |chore|
-        if chore.user_id == current_user.id
-          @v1_chore << chore
+
+          if chore.user_id == current_user.id && chore.completed == true
+            @v1_chore << chore
         end
        end
     end
     #render json is basically the return value, in this case, return @v1_chore as json
     render json: @v1_chore, status: :ok
   end
+
+  # GET /v1/group/{:group_id}/chores/users
+  def user_chores
+    @v1_chore ||= []
+     current_user.groups.each do |group|
+       group.chores.each do |chore|
+
+          if chore.user_id == current_user.id && chore.completed == false
+            @v1_chore << chore
+        end
+       end
+    end
+    #render json is basically the return value, in this case, return @v1_chore as json
+    render json: @v1_chore, status: :ok
+  end
+
+
+
   # GET /v1/group/{:group_id}/chores/groups
   def group_chores
 
     group = current_user.groups.where(id: params[:group_id]).first
-    @v1_chore = group.chores
+    @v1_chore ||= []
+    group.chores.each do |chore|
+      if chore.completed == false
+        @v1_chore << chore
+      end
+    end
+    byebug
     render :index, status: :ok
   end
 
@@ -118,7 +142,7 @@ end
     chore = Chore.where(id: params[:id])
     chore.user_id = nil
     chore.save
-   if  user.chores.where(id: params[:id]).destroy
+   if user.chores.where(id: params[:id]).destroy
      head(:ok)
    else
      head(:unprocessable_entity)
@@ -132,7 +156,7 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def v1_chore_params
-      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id, :chore_type, :user_email, :user_token)
+      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id)
 
     end
 end

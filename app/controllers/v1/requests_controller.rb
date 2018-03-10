@@ -31,10 +31,6 @@ class V1::RequestsController < ApplicationController
     end
 
 
-    # function to fetch all recieve invitation
-    def show
-    end
-
     '''Function to check if validate or reject request'''
     def update
         req = Request.find(params[:id])

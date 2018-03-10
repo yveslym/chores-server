@@ -20,7 +20,10 @@ end
  get 'v1/fetch_chore_completion_requests/' => 'v1/requests#fetch_chore_completion_requests'
 
  #chores routes
+ #For getting User in progress chores
   get 'v1/chores/user/' => 'v1/chores#user_chores'
-get 'v1/chores/:group_id/group/' => 'v1/chores#group_chores'
+  #Get User completed chores
+  get 'v1/completed_chores/user/' => 'v1/chores#completed_user_chores'
+  get 'v1/chores/:group_id/group/' => 'v1/chores#group_chores'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
