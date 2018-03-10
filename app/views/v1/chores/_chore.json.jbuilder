@@ -1,5 +1,6 @@
 #This method uses a jbuilder object, then uses the .call method to return to us an object that has
 # the specified parameters
+
 json.call(
     chore,
     :id,
@@ -11,3 +12,12 @@ json.call(
     :assigned,
     :user_id
 )
+<<<<<<< HEAD
+=======
+
+
+# json.image_file do
+#   json.partial! 'v1/users/user', user: current_user
+#   json.call(user, :id,:email, :first_name, :last_name, :username)
+# end
+>>>>>>> 4e05bed0f12d885716d20108bf314583004ed2ed

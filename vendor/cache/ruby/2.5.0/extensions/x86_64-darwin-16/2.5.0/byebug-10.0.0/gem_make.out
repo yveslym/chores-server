@@ -1,0 +1,19 @@
+current directory: /Users/yveslym/Documents/Chore/server/vendor/cache/ruby/2.5.0/gems/byebug-10.0.0/ext/byebug
+/usr/local/opt/ruby/bin/ruby -r ./siteconf20180306-50481-y4kfua.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yveslym/Documents/Chore/server/vendor/cache/ruby/2.5.0/gems/byebug-10.0.0/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/yveslym/Documents/Chore/server/vendor/cache/ruby/2.5.0/gems/byebug-10.0.0/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/yveslym/Documents/Chore/server/vendor/cache/ruby/2.5.0/gems/byebug-10.0.0/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20180306-50481-1j1f6fe/byebug

@@ -28,7 +28,7 @@ end
 
     @user = User.new(v1_sessions_params)
     if @user.save
-      render json: @user, status: :ok
+      render :create, status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -47,7 +47,11 @@ end
 
   def update
       @v1_user = current_user
+<<<<<<< HEAD
 
+=======
+      #byebug
+>>>>>>> 4e05bed0f12d885716d20108bf314583004ed2ed
     if @v1_user.update(v1_sessions_params)
         render json: @v1_user, status: :ok
     else

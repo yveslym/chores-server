@@ -1,5 +1,5 @@
 json.call(
-        @v1_user,
+        user,
         :id,
         :email,
         :first_name,
