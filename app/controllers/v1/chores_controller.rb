@@ -7,14 +7,14 @@ class V1::ChoresController < ApplicationController
   #Index returns all the chores of a certain group, or of a certain user
   def index
 
-      if (current_user != nil) && (params[:chore_type] == "group")
+      if (current_user.present? && params[:chore_type] == "group")
           #set global var to all the chores where the group id is equal to the id in our body
           @v1_chore = Chore.where(group_id: v1_chore_params[:group_id])
-          render json: @v1_chore, status: :created
+          render :index, status: :ok
 
-    elsif (current_user != nil) && (params[:chore_type] == "user")
+    elsif (current_user.present? && params[:chore_type] == "user")
         @v1_chore = V1::Chore.where(user_id: v1_chore_params[current_user.id])
-        render json: @v1_chore, status: :created
+        render :index_user, status: :ok
     else
       render json: @v1_chore.errors, status: :unprocessable_entity
 
@@ -132,7 +132,7 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def v1_chore_params
-      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id, :chore_type)
+      params.permit(:name, :id, :due_date, :completed, :assigned, :reward, :penalty, :user_id, :group_id, :chore_type, :user_email, :user_token)
 
     end
 end

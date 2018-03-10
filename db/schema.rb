@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 20180308204109) do
     t.integer "request_type", null: false
     t.boolean "response"
     t.string "group_name", limit: 40
-    t.string "uuid"
     t.string "unique_id"
+    t.string "uuid"
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
     t.index ["reciever_id"], name: "index_requests_on_reciever_id"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20180308204109) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "fist_name"
     t.string "last_name"
     t.string "username"
     t.datetime "created_at", null: false
@@ -95,5 +94,5 @@ ActiveRecord::Schema.define(version: 20180308204109) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chores", "users"
+  add_foreign_key "chores", "groups"
 end

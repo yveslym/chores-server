@@ -4,5 +4,8 @@ json.call(
         :email,
         :first_name,
         :last_name,
-        :username
+        :username,
+        :image_file_file_name,
+        :image_file_content_type,
+        :image_file_file_size
     )
