@@ -1,6 +1,6 @@
 
 #getting the specific group that was passed in
-json.call(group, :id, :name)
+json.call(group, :id, :name, :image_file)
 
 #Adding the chores param to the group
 json.chores group.chores do |chore|

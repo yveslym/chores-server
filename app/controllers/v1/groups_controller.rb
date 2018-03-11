@@ -66,6 +66,6 @@ class V1::GroupsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def v1_group_params
-     params.permit(:name, :id)
+     params.permit(:name, :id, :image_file)
     end
 end
