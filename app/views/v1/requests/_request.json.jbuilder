@@ -5,5 +5,7 @@ json.call(request,
          :group_id,
          :chore_id,
          :response,
-         :group_name
+         :group_name,
+         :username,
+         :chore_name
      )

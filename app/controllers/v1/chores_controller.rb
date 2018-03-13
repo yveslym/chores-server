@@ -39,6 +39,7 @@ end
     @v1_chore.completed = false
     @v1_chore.assigned = false
     @v1_chore.pending = false
+    @v1_chore.groupname = group.name
     if @v1_chore.save
       render :create, status: :created
     else

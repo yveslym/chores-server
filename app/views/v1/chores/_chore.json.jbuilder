@@ -10,5 +10,6 @@ json.call(
     :reward,
     :completed,
     :assigned,
-    :user_id
+    :user_id,
+    :groupname
 )

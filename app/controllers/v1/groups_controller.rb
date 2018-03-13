@@ -41,7 +41,7 @@ class V1::GroupsController < ApplicationController
 
   # PATCH/PUT /v1/groups/1
   def update
-    if @v1_group.update(v1_group_params)
+    if @v1_group.update(v1_group_image_params)
       render json: @v1_group
     else
       render json: @v1_group.errors, status: :unprocessable_entity
@@ -67,5 +67,9 @@ class V1::GroupsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def v1_group_params
      params.permit(:name, :id, :image_file)
+    end
+
+    def v1_group_image_params
+      params.permit(:image_file)
     end
 end

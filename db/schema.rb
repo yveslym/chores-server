@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311230526) do
+ActiveRecord::Schema.define(version: 20180312223352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180311230526) do
     t.datetime "updated_at", null: false
     t.bigint "group_id"
     t.boolean "pending"
+    t.string "groupname"
     t.index ["group_id"], name: "index_chores_on_group_id"
     t.index ["user_id"], name: "index_chores_on_user_id"
   end
@@ -60,8 +61,10 @@ ActiveRecord::Schema.define(version: 20180311230526) do
     t.integer "request_type", null: false
     t.boolean "response"
     t.string "group_name", limit: 40
-    t.string "uuid"
     t.string "unique_id"
+    t.string "uuid"
+    t.string "username"
+    t.string "chore_name"
     t.index ["chore_id"], name: "index_requests_on_chore_id"
     t.index ["group_id"], name: "index_requests_on_group_id"
     t.index ["reciever_id"], name: "index_requests_on_reciever_id"

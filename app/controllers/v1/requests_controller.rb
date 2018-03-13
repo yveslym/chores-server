@@ -66,9 +66,11 @@ class V1::RequestsController < ApplicationController
       uuid = SecureRandom.uuid
       group.users.each do |user|
         if current_user.id != user.id
+          receiver_user = current_user
           @v1_request = Request.new(sender_id: current_user.id,reciever_id: user.id,
           request_type: v1_requests_params[:request_type],
-            chore_id: v1_requests_params[:chore_id], group_id: chore.group_id, uuid: uuid)
+            chore_id: v1_requests_params[:chore_id], group_id: chore.group_id, uuid: uuid,
+          username: receiver_user.username, chore_name: chore.name)
 
           if @v1_request.save
             head(:ok)
