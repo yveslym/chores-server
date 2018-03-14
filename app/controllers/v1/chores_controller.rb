@@ -120,6 +120,18 @@ end
     render :index, status: :ok
   end
 
+  def completed_group_chores
+
+    group = current_user.groups.where(id: params[:group_id]).first
+    @v1_chore ||= []
+    group.chores.each do |chore|
+      if chore.completed == true
+        @v1_chore << chore
+      end
+    end
+    render :index, status: :ok
+  end
+
   # POST /v1/groups/{:group_id}/chores/assign/user{id}
   def assign_chore
     #method to assign chores to a user

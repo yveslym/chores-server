@@ -25,5 +25,6 @@ end
   #Get User completed chores
   get 'v1/completed_chores/user/' => 'v1/chores#completed_user_chores'
   get 'v1/chores/:group_id/group/' => 'v1/chores#group_chores'
+  get 'v1/groups/:group_id/completed_chores/' => 'v1/chores#completed_group_chores'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
