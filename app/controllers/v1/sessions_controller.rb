@@ -27,6 +27,7 @@ end
   def new_account
 
     @user = User.new(v1_sessions_params)
+    byebug
     if @user.save
       render :create, status: :ok
     else
@@ -67,7 +68,9 @@ def nilify_token
 end
 
 def v1_sessions_params
-      params.permit(:email, :password, :password_confirmation,:first_name, :last_name,:username, :image_file)
+      params.permit(:email, :password, :password_confirmation,:first_name,
+          :last_name,:username, :image_file, :voice_file_file_size,:image_file_file_name,
+          :image_file_content_type,:image_file_file_size, :image_file_updated_at)
 end
       # .require(:email, :password)
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312223352) do
+ActiveRecord::Schema.define(version: 20180315183349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,17 +82,12 @@ ActiveRecord::Schema.define(version: 20180312223352) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "fist_name"
     t.string "last_name"
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "authentication_token", limit: 30
     t.string "first_name", limit: 30
-    t.string "voice_file_file_name"
-    t.string "voice_file_content_type"
-    t.integer "voice_file_file_size"
-    t.datetime "voice_file_updated_at"
     t.string "image_file_file_name"
     t.string "image_file_content_type"
     t.integer "image_file_file_size"
@@ -102,5 +97,5 @@ ActiveRecord::Schema.define(version: 20180312223352) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chores", "users"
+  add_foreign_key "chores", "groups"
 end
