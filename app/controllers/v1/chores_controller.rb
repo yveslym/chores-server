@@ -132,10 +132,9 @@ end
     render :index, status: :ok
   end
 
-  # POST /v1/groups/{:group_id}/chores/assign/user{id}
+  '''method to assign chores to a user
+    find the specific group from the params'''
   def assign_chore
-    #method to assign chores to a user
-    #find the specific group from the params
     group = Group.where(id: params[:group_id])
     #
     user = group.users.where(id: params[:user_id])
