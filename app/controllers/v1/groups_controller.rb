@@ -88,8 +88,4 @@ class V1::GroupsController < ApplicationController
     def v1_group_params
      params.permit(:name, :image_file)
     end
-
-    def v1_group_image_params
-      params.permit(:image_file)
-    end
 end
