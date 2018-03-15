@@ -41,6 +41,7 @@ class V1::GroupsController < ApplicationController
 
   # PATCH - delete the targeted member from current group
   # /v1/groups/:id
+  #Handle what happens when the last person of a group leaves it
   def remove_member
     @v1_group = current_user.groups.where(id: params[:id]).first
     user = @v1_group.users.where(id: params[:user_id])
