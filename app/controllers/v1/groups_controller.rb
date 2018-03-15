@@ -39,10 +39,29 @@ class V1::GroupsController < ApplicationController
     end
   end
 
+  # PATCH - delete the targeted member from current group
+  # /v1/groups/:id
+  def remove_member
+    @v1_group = current_user.groups.where(id: params[:id]).first
+    user = @v1_group.users.where(id: params[:user_id])
+    @v1_group.users.delete(user)
+    @v1_group.save
+
+    user_chores = Chore.where(user_id: params[:user_id], group_id: params[:id])
+    user_chores.each do |chore|
+      chore.destroy
+    end
+    user_requests = Request.where(sender_id: params[:user_id], group_id: params[:id])
+    user_requests.each do |request|
+      request.destroy
+    end
+    head(:ok)
+  end
+
   # PATCH/PUT /v1/groups/1
   def update
     group = Group.where(id: params[:id])
-    if group.update(v1_group_image_params)
+    if group.update(v1_group_params)
       render json: group
     else
       render json: group.errors, status: :unprocessable_entity
@@ -51,7 +70,7 @@ class V1::GroupsController < ApplicationController
 
   # DELETE /v1/groups/1
   def destroy
-    @v1_group = current_user.groups.where(id: params[:id])
+    @v1_group = current_user.groups.where(id: params[:id]).first
     if @v1_group.destroy
       head(:ok)
     else
@@ -67,7 +86,7 @@ class V1::GroupsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def v1_group_params
-     params.permit(:name, :id, :image_file)
+     params.permit(:name, :image_file)
     end
 
     def v1_group_image_params

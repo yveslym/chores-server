@@ -27,4 +27,6 @@ end
   get 'v1/chores/:group_id/group/' => 'v1/chores#group_chores'
   get 'v1/groups/:group_id/completed_chores/' => 'v1/chores#completed_group_chores'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  #patch routes
+  patch 'v1/groups/:id/user/' => 'v1/groups#remove_member'
 end

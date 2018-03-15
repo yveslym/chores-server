@@ -16,14 +16,13 @@ class Request < ApplicationRecord
           request.destroy
         end
       else
-
         request = Request.where(id: v1_requests_params[:id]).first
         request.destroy
         pending_request = Request.where(uuid: v1_requests_params[:uuid])
         if pending_request.any? == false
               @chore.pending = false
               @chore.user_id = nil
-              @chore.assigned = false     
+              @chore.assigned = false
         end
       end
       @chore
