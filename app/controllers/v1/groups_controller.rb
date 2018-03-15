@@ -41,10 +41,11 @@ class V1::GroupsController < ApplicationController
 
   # PATCH/PUT /v1/groups/1
   def update
-    if @v1_group.update(v1_group_image_params)
-      render json: @v1_group
+    group = Group.where(id: params[:id])
+    if group.update(v1_group_image_params)
+      render json: group
     else
-      render json: @v1_group.errors, status: :unprocessable_entity
+      render json: group.errors, status: :unprocessable_entity
     end
   end
 
