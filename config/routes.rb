@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
 #adds v1/ then the rest of the path
 namespace :v1, defaults: { format: :json }  do
+
+post 'new_account/' => 'sessions#new_account'
+
 #only create routes for things inside the array
 resources :requests
  # only: [:create, :index, :update]
@@ -11,7 +14,7 @@ resources :groups do
     resources :chores
 end
 end
- post 'v1/new_account/' => 'v1/sessions#new_account'
+
  #Route for sending out chore_completion requests for all users in the current group
  post 'v1/chore_completion_request/' => 'v1/requests#chore_completion_request'
  #Route for fetching all the group requests
