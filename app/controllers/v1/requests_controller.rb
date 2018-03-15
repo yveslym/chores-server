@@ -2,26 +2,16 @@ class V1::RequestsController < ApplicationController
 
     #Function for fetching only the chore completion requests
     def fetch_chore_completion_requests
-      @v1_request ||= []
-      all_requests = Request.where(reciever_id: current_user.id, group_id: v1_requests_params[:group_id])
-      all_requests.each do |request|
-        if request.group_name == nil
-          @v1_request << request
-        end
-      end
+
+     @v1_request = Request.where(reciever_id: current_user.id, group_id: v1_requests_params[:group_id])
       render json: @v1_request, status: :ok
     end
 
     #Function for fetching only the group requests
     def fetch_group_requests
-      @v1_request ||= []
-      all_requests = Request.where(reciever_id: current_user.id)
-      all_requests.each do |request|
-        if request.group_name != nil
-          @v1_request << request
-        end
-      end
-      render :index, status: :ok
+
+      @v1_request = Request.where(reciever_id: current_user.id)
+      render json:  @v1_request, status: :ok
     end
 
     def index
@@ -94,7 +84,7 @@ class V1::RequestsController < ApplicationController
             chore_id: v1_requests_params[:chore_id], group_name: v1_requests_params[:group_name])
 
         if @v1_request.save
-            head(:ok)
+            render json: @v1_request, status: :created
         else
             head(:unprocessable_entity)
         end
