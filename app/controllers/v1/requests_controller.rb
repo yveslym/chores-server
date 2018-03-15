@@ -21,7 +21,7 @@ class V1::RequestsController < ApplicationController
           @v1_request << request
         end
       end
-      render json: @v1_request, status: :ok
+      render :index, status: :ok
     end
 
     def index
