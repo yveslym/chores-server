@@ -27,7 +27,7 @@ end
   def new_account
 
     @user = User.new(v1_sessions_params)
-    byebug
+    
     if @user.save
       render :create, status: :ok
     else
