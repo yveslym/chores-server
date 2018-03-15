@@ -26,12 +26,12 @@ end
 
   def new_account
 
-    @user = User.new(v1_sessions_params)
-    
-    if @user.save
+    @v1_user = User.new(v1_sessions_params)
+
+    if @v1_user.save
       render :create, status: :ok
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @v1_user.errors, status: :unprocessable_entity
     end
   end
   # DELETE /v1/sessions/1
