@@ -13,7 +13,7 @@ class V1::RequestsController < ApplicationController
 
     '''Function for fetching only the group requests'''
     def fetch_group_requests
-        @v1_request = Request.where.not(group_name: nil)
+        @v1_request =  Request.where.not(group_name: nil).where(reciever_id: current_user.id)
         if @v1_request != nil
             @v1_request.map { |request| request.request_type = 0 }
          render json: @v1_request, status: :ok
