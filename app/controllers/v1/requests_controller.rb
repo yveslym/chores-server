@@ -10,15 +10,15 @@ class V1::RequestsController < ApplicationController
     #Function for fetching only the group requests
     def fetch_group_requests
 
-      @v1_request = Request.where(reciever_id: current_user.id)
+      @v1_request = Request.where(reciever_id: current_user.id, request_type: 0)
       render json:  @v1_request, status: :ok
     end
 
-    def index
-        #byebug
-        @v1_request = Request.where(reciever_id: current_user.id)
-        render :index, status: :ok
-    end
+    # def index
+    #     #byebug
+    #     @v1_request = Request.where(reciever_id: current_user.id)
+    #     render :index, status: :ok
+    # end
 
 
     '''Function to check if validate or reject request'''
