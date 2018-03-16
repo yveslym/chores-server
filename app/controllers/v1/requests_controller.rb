@@ -15,7 +15,7 @@ class V1::RequestsController < ApplicationController
     def fetch_group_requests
         @v1_request =  Request.where.not(group_name: nil).where(reciever_id: current_user.id)
         if @v1_request != nil
-            @v1_request.map { |request| request.request_type = 0 }
+            @v1_request.map {|request| request.request_type = 0}
          render json: @v1_request, status: :ok
         else
          render json: @v1_request.error, status: :unprocessable_entity
