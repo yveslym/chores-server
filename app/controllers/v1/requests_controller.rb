@@ -4,22 +4,23 @@ class V1::RequestsController < ApplicationController
     def fetch_chore_completion_requests
 
      @v1_request = Request.where(reciever_id: current_user.id, group_id: v1_requests_params[:group_id])
+     if @v1_request != nil
       render json: @v1_request, status: :ok
+  else
+      render json: @v1_request.error, status: :unprocessable_entity
+  end
     end
 
-    #Function for fetching only the group requests
+    '''Function for fetching only the group requests'''
     def fetch_group_requests
-
-      @v1_request = Request.where(reciever_id: current_user.id, request_type: 0)
-      render json:  @v1_request, status: :ok
-    end
-
-    # def index
-    #     #byebug
-    #     @v1_request = Request.where(reciever_id: current_user.id)
-    #     render :index, status: :ok
-    # end
-
+        @v1_request = Request.where.not(group_name: nil)
+        if @v1_request != nil
+            @v1_request.map { |request| request.request_type = 0 }
+         render json: @v1_request, status: :ok
+        else
+         render json: @v1_request.error, status: :unprocessable_entity
+        end
+       end
 
     '''Function to check if validate or reject request'''
     def update
